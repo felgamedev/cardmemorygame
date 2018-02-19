@@ -1,7 +1,16 @@
-/*
- * Create a list that holds all of your cards
- */
+const cards = [];
 
+function createArrayOfCards(){
+  // Hardcoded 8 types of cards for a 16 card game
+  const cardTypes = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt",
+  "fa fa-cube", "fa fa-leaf","fa fa-bicycle", "fa fa-bomb"];
+
+  // Add two of each card to the array of cards
+  for(let i = 0; i < cardTypes.length; i++){
+    cards.push(cardTypes[i]);
+    cards.push(cardTypes[i]);
+  }
+}
 
 /*
  * Display the cards on the page
@@ -36,3 +45,5 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ createArrayOfCards();
