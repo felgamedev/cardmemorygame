@@ -1,3 +1,7 @@
+const deck = document.querySelector('.deck');
+const scorePanel = document.querySelector('.score-panel');
+const numMovesSpan = document.querySelector('.moves');
+const restartButton = document.querySelector('.restart');
 const cards = [];
 
 function createArrayOfCards(){
@@ -18,6 +22,10 @@ function createArrayOfCards(){
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+ function gameInit(){
+   shuffle(cards);
+ }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -46,4 +54,5 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
- createArrayOfCards();
+createArrayOfCards();
+gameInit();
