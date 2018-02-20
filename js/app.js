@@ -6,25 +6,37 @@ const cards = [];
 
 function createArrayOfCards(){
   // Hardcoded 8 types of cards for a 16 card game
-  const cardTypes = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt",
-  "fa fa-cube", "fa fa-leaf","fa fa-bicycle", "fa fa-bomb"];
+  const cardTypes = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt",
+  "fa-cube", "fa-leaf","fa-bicycle", "fa-bomb"];
 
   // Add two of each card to the array of cards
   for(let i = 0; i < cardTypes.length; i++){
-    cards.push(cardTypes[i]);
-    cards.push(cardTypes[i]);
+    cards.push(createCard(cardTypes[i]));
+    cards.push(createCard(cardTypes[i]));
   }
 }
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+function createCard(cardTypesText){
+  console.log(cardTypesText);
+  var cardElement = document.createElement("li");
+  cardElement.classList.add('card');
+
+  var innerImage = document.createElement("i");
+  innerImage.classList.add('fa');
+  innerImage.classList.add(cardTypesText);
+  cardElement.appendChild(innerImage);
+
+  return cardElement;
+}
 
  function gameInit(){
    shuffle(cards);
+   deck.innerHTML = "";
+   // Fill the deck with the newly shuffled cards
+   for(let i = 0; i < cards.length; i++){
+     deck.appendChild(cards[i]);
+   }
+
  }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
