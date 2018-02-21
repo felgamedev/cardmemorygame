@@ -6,6 +6,7 @@ const cards = [];
 const openCards = [];
 var timeoutId = null;
 let movesCounter = 0;
+let matchingPairsCount = 0;
 
 deck.addEventListener('click', function(event){
   if(timeoutId != null){
@@ -47,6 +48,9 @@ deck.addEventListener('click', function(event){
   if(openCards.length > 1) {
     checkForMatch();
   }
+
+  // Check if all pairs are complete
+  checkForWin();
 });
 
 function checkForMatch(){
@@ -55,6 +59,7 @@ function checkForMatch(){
 
   if(cardOneClass == cardTwoClass){
     setMatchingCards();
+    matchingPairsCount++;
   } else {
     timeoutId = setTimeout(rejectNonMatchingCards, 1000);
   }
@@ -71,6 +76,13 @@ function setMatchingCards(){
   }
 
   clearOpenCards();
+}
+
+function checkForWin(){
+  if(matchingPairsCount === 8){
+    // Win condition met
+    console.log("You won in " + movesCounter + " moves!");
+  }
 }
 
 function rejectNonMatchingCards() {
@@ -123,6 +135,8 @@ function createCard(cardTypesText){
 
    // Initialize move counter to zero
    numMovesSpan.textContent = movesCounter;
+   // Initialize matching pairs to zero
+   matchingPairsCount = 0;
  }
 
  function incrementNumberOfMoves(){
