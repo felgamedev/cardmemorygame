@@ -3,6 +3,22 @@ const scorePanel = document.querySelector('.score-panel');
 const numMovesSpan = document.querySelector('.moves');
 const restartButton = document.querySelector('.restart');
 const cards = [];
+const openCards = [];
+
+deck.addEventListener('click', function(event){
+  let cardClicked;
+  // Check to see if a card has been clicked
+  if(event.target.nodeName == "LI"){
+    cardClicked = event.target;
+  } else return;
+
+  // Add the card to the openCards list
+  addToOpenList(cardClicked);
+});
+
+function addToOpenList(card){
+  if(openCards.length < 2) openCards.push(card);
+}
 
 function createArrayOfCards(){
   // Hardcoded 8 types of cards for a 16 card game
