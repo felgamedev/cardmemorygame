@@ -4,8 +4,17 @@ const numMovesSpan = document.querySelector('.moves');
 const restartButton = document.querySelector('.restart');
 const cards = [];
 const openCards = [];
+var timeoutId = null;
 
 deck.addEventListener('click', function(event){
+  if(timeoutId != null){
+    if(openCards.length > 0){
+      clearTimeout(timeoutId);
+      rejectNonMatchingCards();
+    }
+    timeoutId = null;
+  }
+
   let cardClicked;
   // Check to see if a card has been clicked
   if(event.target.nodeName == "LI"){ // Card area is clicked
@@ -16,20 +25,59 @@ deck.addEventListener('click', function(event){
 
   // Don't do anything if the card has already been matched
   if(cardClicked.classList.contains('match')) return;
+  // Prevent clicking the same card twice
+  if(openCards.length > 0 && cardClicked === openCards[0]){
+    rejectNonMatchingCards();
+  }
 
   // Reveal card
   toggleShowCard(cardClicked);
   // Add the card to the openCards list
   addToOpenList(cardClicked);
+  // Check openCards for a match
+  if(openCards.length > 1) {
+    checkForMatch();
+  }
 });
+
+function checkForMatch(){
+  let cardOneClass = openCards[0].firstChild.classList[1];
+  let cardTwoClass = openCards[1].firstChild.classList[1];
+
+  if(cardOneClass == cardTwoClass){
+    setMatchingCards();
+  } else {
+    timeoutId = setTimeout(rejectNonMatchingCards, 1000);
+  }
+}
 
 function toggleShowCard(card){
   card.classList.toggle('show');
   card.classList.toggle('open');
 }
 
+function setMatchingCards(){
+  for(let i = 0; i < openCards.length; i++){
+    openCards[i].classList.add('match');
+  }
+
+  clearOpenCards();
+}
+
+function rejectNonMatchingCards() {
+  for(let i = 0; i < openCards.length; i++){
+    toggleShowCard(openCards[i]);
+  }
+
+  clearOpenCards();
+}
+
+function clearOpenCards(){
+  openCards.splice(0, 2);
+}
+
 function addToOpenList(card){
-  if(openCards.length < 2) openCards.push(card);
+  openCards.push(card);
 }
 
 function createArrayOfCards(){
@@ -45,7 +93,6 @@ function createArrayOfCards(){
 }
 
 function createCard(cardTypesText){
-  console.log(cardTypesText);
   var cardElement = document.createElement("li");
   cardElement.classList.add('card');
 
