@@ -5,6 +5,7 @@ const restartButton = document.querySelector('.restart');
 const cards = [];
 const openCards = [];
 var timeoutId = null;
+let movesCounter = 0;
 
 deck.addEventListener('click', function(event){
   if(timeoutId != null){
@@ -37,6 +38,7 @@ deck.addEventListener('click', function(event){
   // Check openCards for a match
   if(openCards.length > 1) {
     checkForMatch();
+    incrementNumberOfMoves();
   }
 });
 
@@ -112,6 +114,13 @@ function createCard(cardTypesText){
      deck.appendChild(cards[i]);
    }
 
+   // Initialize move counter to zero
+   numMovesSpan.textContent = movesCounter;
+ }
+
+ function incrementNumberOfMoves(){
+   movesCounter++;
+   numMovesSpan.textContent = movesCounter;
  }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
