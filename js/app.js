@@ -31,6 +31,9 @@ deck.addEventListener('click', function(event){
     rejectNonMatchingCards();
   }
 
+  if(openCards.length > 0 && cardClicked === openCards[0]){
+    rejectNonMatchingCards();
+  }
   // Reveal card
   toggleShowCard(cardClicked);
   // Add the card to the openCards list
@@ -39,6 +42,10 @@ deck.addEventListener('click', function(event){
   if(openCards.length > 1) {
     checkForMatch();
     incrementNumberOfMoves();
+  }
+  // Check openCards for a match
+  if(openCards.length > 1) {
+    checkForMatch();
   }
 });
 
