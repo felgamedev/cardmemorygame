@@ -8,13 +8,21 @@ const openCards = [];
 deck.addEventListener('click', function(event){
   let cardClicked;
   // Check to see if a card has been clicked
-  if(event.target.nodeName == "LI"){
+  if(event.target.nodeName == "LI"){ // Card area is clicked
     cardClicked = event.target;
-  } else return;
+  } else if(event.target.nodeName == "I"){ // Shown card icon is clicked
+    cardClicked = event.target.parentElement;
+  }else return; // Empty deck area clicked
 
+  toggleShowCard(cardClicked);
   // Add the card to the openCards list
   addToOpenList(cardClicked);
 });
+
+function toggleShowCard(card){
+  card.classList.toggle('show');
+  card.classList.toggle('open');
+}
 
 function addToOpenList(card){
   if(openCards.length < 2) openCards.push(card);
