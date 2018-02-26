@@ -17,13 +17,6 @@ let starsElements = scorePanel.querySelectorAll('i');
 
 // Event Listeners
 deck.addEventListener('click', function(event){
-	if(timeoutId != null){
-		if(openCards.length > 0){
-			clearTimeout(timeoutId);
-			rejectNonMatchingCards();
-		}
-	}
-
 	let cardClicked;
 	// Check to see if a card has been clicked
 	if(event.target.nodeName == "LI"){ // Card area is clicked
@@ -34,9 +27,22 @@ deck.addEventListener('click', function(event){
 
 	// Don't do anything if the card has already been matched
 	if(cardClicked.classList.contains('match')) return;
-	// Prevent clicking the same card twice
+	// Prevent clicking the same card twice to create a match
 	if(openCards.length > 0 && cardClicked === openCards[0]){
-		rejectNonMatchingCards();
+		console.log("Clicked the same card twice");
+		return;
+	}
+
+	// Start a new pair by resetting the revealed card timeout
+	if(timeoutId != null){
+		// Do not
+		if(cardClicked == openCards[0] || cardClicked == openCards[1]){
+			return;
+		}
+		if(openCards.length > 0){
+			clearTimeout(timeoutId);
+			rejectNonMatchingCards();
+		}
 	}
 
 	// Reveal card
