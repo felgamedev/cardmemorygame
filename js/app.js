@@ -23,6 +23,7 @@ deck.addEventListener('click', function(event){
 			rejectNonMatchingCards();
 		}
 		timeoutId = null;
+		return;
 	}
 
 	let cardClicked;
@@ -48,10 +49,6 @@ deck.addEventListener('click', function(event){
 	if(openCards.length > 1) {
 		checkForMatch();
 		incrementNumberOfMoves();
-	}
-	// Check openCards for a match
-	if(openCards.length > 1) {
-		checkForMatch();
 	}
 
 	// Check if all pairs are complete
