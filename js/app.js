@@ -229,7 +229,7 @@ function incrementNumberOfMoves(){
 
  function toggleStarsOff(index){
 	 starsElements[index].classList.remove('fa-star');
-	 starsElements[index].classList.toggle('fa-star-o');
+	 starsElements[index].classList.add('fa-star-o');
  }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
