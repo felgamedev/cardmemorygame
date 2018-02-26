@@ -12,6 +12,8 @@ const openCards = [];
 var timeoutId = null;
 let movesCounter = 0;
 let matchingPairsCount = 0;
+let starsCount = 3;
+let starsElements = scorePanel.querySelectorAll('i');
 
 // Event Listeners
 deck.addEventListener('click', function(event){
@@ -151,7 +153,7 @@ function createWinPanel(){
 }
 
 function updateWinPanel(){
-	winPanelText.textContent = `You beat the game in ${movesCounter} moves, earning ${3} stars.\nClick HERE to play again`;
+	winPanelText.textContent = `You beat the game in ${movesCounter} moves, earning ${starsCount} stars.\nClick HERE to play again`;
 }
 
 function showWinPanel(){
@@ -192,6 +194,26 @@ function resetNumberOfMoves(){
 function incrementNumberOfMoves(){
 	 movesCounter++;
 	 numMovesSpan.textContent = movesCounter;
+	 if(movesCounter === 16){
+		 starsCount = 2;
+		 toggleStarsOff(2);
+	 }
+
+	 if(movesCounter === 20){
+		 starsCount = 1;
+		 toggleStarsOff(1);
+	 }
+
+	 if(movesCounter === 24){
+		 starsCount = 0;
+		 toggleStarsOff(0);
+	 }
+
+ }
+
+ function toggleStarsOff(index){
+	 starsElements[index].classList.toggle('fa-star');
+	 starsElements[index].classList.toggle('fa-star-o');
  }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
