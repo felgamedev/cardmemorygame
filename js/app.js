@@ -180,13 +180,27 @@ function gameInit(){
 
 	// Reset number of matching pairs
 	matchingPairsCount = 0;
+
+	//Reset number of stars to 3
+	starsCount = 3;
+	resetStarsDisplay();
 }
 
+// Simple variable and DOM element reset
 function resetNumberOfMoves(){
 	movesCounter = 0;
 	numMovesSpan.textContent = movesCounter;
 }
 
+// Reset the classList on all 3 stars
+function resetStarsDisplay(){
+	for(let i = 0; i < starsElements.length; i++){
+		starsElements[i].classList.add('fa-star');
+		starsElements[i].classList.remove('fa-star-o');
+	}
+}
+
+// Increment movesCounter and check for star rating change
 function incrementNumberOfMoves(){
 	 movesCounter++;
 	 numMovesSpan.textContent = movesCounter;
@@ -208,7 +222,7 @@ function incrementNumberOfMoves(){
  }
 
  function toggleStarsOff(index){
-	 starsElements[index].classList.toggle('fa-star');
+	 starsElements[index].classList.remove('fa-star');
 	 starsElements[index].classList.toggle('fa-star-o');
  }
 
