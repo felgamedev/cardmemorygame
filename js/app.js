@@ -22,8 +22,6 @@ deck.addEventListener('click', function(event){
 			clearTimeout(timeoutId);
 			rejectNonMatchingCards();
 		}
-		timeoutId = null;
-		return;
 	}
 
 	let cardClicked;
@@ -107,6 +105,7 @@ function rejectNonMatchingCards() {
 	}
 
 	clearOpenCards();
+	timeoutId = null;
 }
 
 function clearOpenCards(){
