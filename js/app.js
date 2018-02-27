@@ -7,13 +7,20 @@ const winPanel = document.createElement('div');
 const winPanelHeader = document.createElement('h2');
 const winPanelText = document.createElement('p');
 
+const timerPanel = document.createElement('div');
+const timerMins = document.createElement('span');
+const timerSecs = document.createElement('span');
+
 let cards = [];
 const openCards = [];
 var timeoutId = null;
+var timerIntervalId = null;
 let movesCounter = 0;
 let matchingPairsCount = 0;
 let starsCount = 3;
 let starsElements = scorePanel.querySelectorAll('i');
+// Timer variables
+let startTime = nowTime = minutes = seconds = 0;
 
 // Event Listeners
 deck.addEventListener('click', function(event){
@@ -24,6 +31,9 @@ deck.addEventListener('click', function(event){
 	} else if(event.target.nodeName == "I"){ // Shown card icon is clicked
 		cardClicked = event.target.parentElement;
 	}else return; // Empty deck area clicked
+
+	// Valid card selected, start timer if not already running
+	if(startTime < 1) startTimer();
 
 	// Don't do anything if the card has already been matched
 	if(cardClicked.classList.contains('match')) return;
@@ -63,6 +73,7 @@ restartButton.addEventListener('click', function(event){
 	if(matchingPairsCount == 8){
 		resetGameElementsAfterWin();
 	}
+	stopTimer();
 	gameInit();
 });
 
@@ -92,6 +103,7 @@ function checkForMatch(){
 function checkForWin(){
 	if(matchingPairsCount === 8){
 		// Win condition met
+		stopTimer();
 		updateWinPanel();
 		showWinPanel();
 	}
@@ -169,6 +181,51 @@ function resetGameElementsAfterWin(){
 	winPanel.remove();
 }
 
+// Timer functions
+
+function createTimerPanel(){
+	timerMins.textContent = minutes;
+	timerSecs.textContent = seconds + "0";
+	let timerSpacer = document.createElement('span');
+	timerSpacer.textContent = ':';
+
+	timerPanel.appendChild(timerMins);
+	timerPanel.appendChild(timerSpacer);
+	timerPanel.appendChild(timerSecs);
+	scorePanel.appendChild(timerPanel);
+}
+
+function startTimer(){
+	startTime = Date.now();
+	console.log("startTimer run");
+	// Refresh the time in just under a
+	timerIntervalId = setInterval(updateTimer, 500);
+}
+
+function stopTimer(){
+	clearInterval(timerIntervalId);
+	updateTimer();
+}
+
+function updateTimer(){
+	console.log("UpdateTimer");
+	nowTime = Date.now();
+
+	let timeElapsed = nowTime - startTime;
+	let totalSeconds = Math.floor(timeElapsed/1000);
+	seconds = totalSeconds % 60;
+	minutes = (totalSeconds > 60) ? Math.floor(totalSeconds/60) : 0;
+
+	// Push new time to page
+	timerSecs.textContent = (seconds < 10) ? "0" + seconds : seconds;
+	timerMins.textContent = minutes;
+}
+
+function clearTimer(){
+	timerMins.textContent = "0";
+	timerSecs.textContent = "00";
+}
+
 // Game setup functions
 function gameInit(){
 	// Create new array of cards
@@ -190,6 +247,11 @@ function gameInit(){
 	//Reset number of stars to 3
 	starsCount = 3;
 	resetStarsDisplay();
+
+	// Reset timer variables
+	startTime = minutes = seconds = nowTime = 0;
+	timerIntervalId = null;
+	clearTimer();
 }
 
 // Simple variable and DOM element reset
@@ -249,4 +311,5 @@ function shuffle(array) {
 
 // Launch game on page load
 createWinPanel();
+createTimerPanel();
 gameInit();
