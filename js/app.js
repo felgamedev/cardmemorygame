@@ -5,7 +5,7 @@ const numMovesSpan = document.querySelector('.moves');
 const restartButton = document.querySelector('.restart');
 const winPanel = document.createElement('div');
 const winPanelHeader = document.createElement('h2');
-const winPanelText = document.createElement('p');
+const winPanelText = document.createTextNode('');
 
 const timerPanel = document.createElement('div');
 const timerMins = document.createElement('span');
@@ -164,10 +164,11 @@ function createWinPanel(){
 	winPanelHeader.textContent = "You win!";
 	winPanel.appendChild(winPanelHeader);
 	winPanel.appendChild(winPanelText);
+	winPanel.classList.add('container');
 }
 
 function updateWinPanel(){
-	winPanelText.textContent = `You beat the game in ${movesCounter} moves, earning ${starsCount} stars.\nClick HERE to play again`;
+	winPanelText.textContent = `You beat the game in ${movesCounter} moves, earning ${starsCount} stars. Click HERE to play again`;
 }
 
 function showWinPanel(){
