@@ -87,8 +87,12 @@ winPanel.addEventListener('click', function(event){
   gameInit();
 });
 
-container.addEventListener('animationend', function(event){
-	setTimeout(function(){container.classList.remove('matchPair');}, 1000);
+container.addEventListener('animationstart', function(event){
+  if(event.target == container){
+    setTimeout(function(){
+      container.classList.remove('matchPair');
+    }, 1000, false);
+  }
 });
 
 // Card functions
