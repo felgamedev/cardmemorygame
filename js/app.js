@@ -82,6 +82,10 @@ winPanel.addEventListener('click', function(event){
 	gameInit();
 })
 
+container.addEventListener('animationend', function(event){
+	setTimeout(function(){container.classList.remove('matchPair');}, 1000);
+});
+
 // Card functions
 function toggleShowCard(card){
 	card.classList.toggle('show');
@@ -113,6 +117,7 @@ function setMatchingCards(){
 	for(let i = 0; i < openCards.length; i++){
 		openCards[i].classList.add('match');
 	}
+	container.classList.add('matchPair');
 
 	clearOpenCards();
 }

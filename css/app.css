@@ -31,6 +31,10 @@ body {
     margin: auto;
 }
 
+.container.matchPair {
+  animation: matchPair .2s 5 step-start;
+}
+
 h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
@@ -144,5 +148,14 @@ h1 {
   }
 }
 
+@keyframes matchPair {
+  0% {
+    background: url('../img/bg128x128.png');
+  }
+  50% {
+    background: url('../img/bgwin128x128.png');
+  }
+  100% {
+    background: url('../img/bg128x128.png');
   }
 }
