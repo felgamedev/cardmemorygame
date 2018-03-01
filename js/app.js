@@ -89,8 +89,8 @@ function toggleShowCard(card){
 }
 
 function checkForMatch(){
-	let cardOneClass = openCards[0].firstChild.classList[1];
-	let cardTwoClass = openCards[1].firstChild.classList[1];
+	let cardOneClass = openCards[0].firstChild.classList[0];
+	let cardTwoClass = openCards[1].firstChild.classList[0];
 
 	if(cardOneClass == cardTwoClass){
 		setMatchingCards();
@@ -137,8 +137,8 @@ function addToOpenList(card){
 function createArrayOfCards(){
 	cards = [];
 	// Hardcoded 8 types of cards for a 16 card game
-	const cardTypes = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt",
-	"fa-cube", "fa-leaf","fa-bicycle", "fa-bomb"];
+	const cardTypes = ["card-mushroom", "card-10coins", "card-20coins", "card-mario",
+	"card-castle", "card-flower","card-star", "card-1up"];
 
 	// Add two of each card to the array of cards
 	for(let i = 0; i < cardTypes.length; i++){
@@ -151,9 +151,9 @@ function createCard(cardTypesText){
 	var cardElement = document.createElement("li");
 	cardElement.classList.add('card');
 
-	var innerImage = document.createElement("i");
-	innerImage.classList.add('fa');
+	var innerImage = document.createElement("img");
 	innerImage.classList.add(cardTypesText);
+	innerImage.src = 'img/' + cardTypesText + '.png'
 	cardElement.appendChild(innerImage);
 
 	return cardElement;
