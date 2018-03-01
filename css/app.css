@@ -22,7 +22,7 @@ body {
 }
 
 .container {
-    background: url('../img/geometry3.png');
+    background: url('../img/bg128x128.png');
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,18 +70,27 @@ h1 {
     /* box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5); */
 }
 
+.deck .card img {
+  visibility: hidden;
+}
+
 .deck .card.open {
     cursor: default;
     animation: flipCard 0.5s linear forwards;
 }
 
-.deck .card i.show {
+.deck .card.show {
     font-size: 33px;
 }
 
 .deck .card.match {
     cursor: default;
     font-size: 33px;
+}
+
+.deck .card.show img,
+.deck .card.match img {
+  animation: revealIcon 0.5s linear forwards;
 }
 
 /*
@@ -117,10 +126,23 @@ h1 {
   }
   50% {
     transform: rotateY(90deg);
-    background: url("../img/cardfront.png");
   }
   100% {
-    transform: rotateY(180deg);
-    background: url("../img/cardfront.png");
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes revealIcon {
+  0% {
+      visibility: hidden;
+  }
+  50% {
+    visibility: hidden;
+  }
+  100% {
+      visibility: visible;
+  }
+}
+
   }
 }
