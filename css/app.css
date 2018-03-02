@@ -27,7 +27,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 640px;
+    max-width: 640px;
     margin: auto;
 }
 
@@ -60,11 +60,12 @@ h1 {
 }
 
 .deck .card {
-    height: 125px;
+    height: fit-content;
     width: 85px;
     margin: 0 12px;
     background: url("../img/cardback.png");
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
     image-rendering: pixelated;
     font-size: 0;
@@ -78,6 +79,7 @@ h1 {
 
 .deck .card img {
   visibility: hidden;
+  max-width: 100%;
 }
 
 .deck .card.open {
@@ -92,6 +94,7 @@ h1 {
 .deck .card.show img,
 .deck .card.match img {
   animation: revealIcon 0.5s linear forwards;
+  max-width: 100%;
 }
 
 /*
@@ -195,5 +198,33 @@ h1 {
   }
   100% {
     background: url('../img/bg128x128.png');
+  }
+}
+
+@media screen and (max-width: 500px){
+  .container {
+    max-width: 100%;
+    min-width: 100%;
+  }
+
+  .deck {
+    max-width: 95%;
+  }
+
+  .score-panel {
+    max-width: 90%;
+  }
+
+  .deck .card {
+    width: 22%;
+    height: fit-content;
+    background-size: auto 100%;
+    margin: 4px 4px;
+    padding: 0;
+  }
+
+  .deck .card.show,
+  .deck .card.open {
+    width: 22%;
   }
 }
