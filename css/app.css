@@ -32,7 +32,7 @@ body {
 }
 
 .container.matchPair {
-  animation: matchPair .2s 5 step-start;
+  animation: matchPair .2s 4 step-start;
 }
 
 h1 {
