@@ -85,13 +85,8 @@ h1 {
     animation: flipCard 0.5s linear forwards;
 }
 
-.deck .card.show {
-    font-size: 33px;
-}
-
 .deck .card.match {
     cursor: default;
-    font-size: 33px;
 }
 
 .deck .card.show img,
