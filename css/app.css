@@ -67,14 +67,13 @@ h1 {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    image-rendering: pixelated;
     font-size: 0;
     color: #ffffff;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 5px 5px #0f0049;);
+    box-shadow: 5px 5px #0f0049;
 }
 
 .deck .card img {
