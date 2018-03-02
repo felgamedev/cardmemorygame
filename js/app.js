@@ -6,6 +6,8 @@ const restartButton = document.querySelector('.restart');
 const winPanel = document.createElement('div');
 const winPanelHeader = document.createElement('h2');
 const winPanelText = document.createTextNode('');
+const winPanelStars = document.createElement('div');
+const blackOverlay = document.createElement('div');
 
 const timerPanel = document.createElement('div');
 const timerMins = document.createElement('span');
@@ -13,6 +15,8 @@ const timerSecs = document.createElement('span');
 
 let cards = [];
 const openCards = [];
+const starImageElements = [];
+const spacerImageElements = [];
 let timeoutId = null;
 let timerIntervalId = null;
 let movesCounter = 0;
@@ -24,6 +28,15 @@ let startTime = 0;
 let nowTime = 0;
 let minutes = 0;
 let seconds = 0;
+
+document.addEventListener('click', function(event){
+  if(event.target.classList.contains('black-overlay')
+  || event.target.classList.contains('win-panel')
+  || event.target.parentNode.classList.contains('win-panel')){
+    resetGameElementsAfterWin();
+    gameInit();
+  }
+});
 
 // Event Listeners
 deck.addEventListener('click', function(event){
@@ -82,10 +95,9 @@ restartButton.addEventListener('click', function(event){
   gameInit();
 });
 
-winPanel.addEventListener('click', function(event){
-  resetGameElementsAfterWin();
-  gameInit();
-});
+// winPanel.addEventListener('click', function(event){
+//
+// });
 
 container.addEventListener('animationstart', function(event){
   if(event.target == container){
@@ -175,24 +187,60 @@ function createCard(cardTypesText){
 
 // Win panel functions
 function createWinPanel(){
+  winPanel.classList.add('win-panel');
+  winPanel.classList.add('score-panel');
+
+  blackOverlay.classList.add('black-overlay');
+
   winPanelHeader.textContent = "You win!";
+  winPanel.appendChild(winPanelStars);
   winPanel.appendChild(winPanelHeader);
   winPanel.appendChild(winPanelText);
-  winPanel.classList.add('container');
+
+  for(let i = 1; i <= 3; i++){
+    var star = document.createElement('img');
+    star.src = "img/star.png";
+    starImageElements[i] = star;
+
+    var spacer = document.createElement('img');
+    spacer.src = "img/spacer.png";
+    spacerImageElements[i] = spacer;
+  }
 }
 
 function updateWinPanel(){
-  winPanelText.textContent = `You beat the game in ${movesCounter} moves, earning ${starsCount} stars. Click HERE to play again`;
+  clearWinPanelStars();
+
+  // Update Stars HERE
+  for(let i = 1; i <= 3; i++){
+    if(i <= starsCount){
+      winPanelStars.appendChild(starImageElements[i]);
+    } else {
+      console.log("attaching a spacer");
+      winPanelStars.appendChild(spacerImageElements[i]);
+    }
+  }
+
+  // Update text
+  winPanelText.textContent = `You beat the game in ${movesCounter} moves, earning ${starsCount} stars. Click here to play again`;
+}
+
+function clearWinPanelStars(){
+  // Clear the stars div
+  while(winPanelStars.firstChild){
+    winPanelStars.removeChild(winPanelStars.lastChild);
+  }
 }
 
 function showWinPanel(){
-  const parent = deck.parentElement;
-  deck.remove();
-  parent.appendChild(winPanel);
+  deck.style.opacity = "50%";
+  container.appendChild(blackOverlay);
+  container.appendChild(winPanel);
 }
 
 function resetGameElementsAfterWin(){
   container.appendChild(deck);
+  blackOverlay.remove();
   winPanel.remove();
 }
 
@@ -212,18 +260,17 @@ function createTimerPanel(){
 
 function startTimer(){
   startTime = Date.now();
-  console.log("startTimer run");
   // Refresh the time in just under a
   timerIntervalId = setInterval(updateTimer, 500);
 }
 
 function stopTimer(){
   clearInterval(timerIntervalId);
+  timerIntervalId = null;
   updateTimer();
 }
 
 function updateTimer(){
-  console.log("UpdateTimer");
   nowTime = Date.now();
 
   let timeElapsed = nowTime - startTime;
