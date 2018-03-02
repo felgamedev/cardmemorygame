@@ -222,7 +222,8 @@ function updateWinPanel(){
   }
 
   // Update text
-  winPanelText.textContent = `You beat the game in ${movesCounter} moves, earning ${starsCount} stars. Click here to play again`;
+  winPanelText.textContent = "You beat the game in " + movesCounter +
+  " moves, earning " + starsCount + " stars. Click here to play again";
 }
 
 function clearWinPanelStars(){
