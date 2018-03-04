@@ -221,9 +221,12 @@ function updateWinPanel(){
     }
   }
 
+  // Update Time HERE
+  let time = timerMins.textContent + ":" + timerSecs.textContent;
+
   // Update text
   winPanelText.textContent = "You beat the game in " + movesCounter +
-  " moves, earning " + starsCount + " stars. Click here to play again";
+  " moves, in " + time + " earning " + starsCount + " stars. Click here to play again";
 }
 
 function clearWinPanelStars(){
