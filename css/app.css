@@ -33,6 +33,7 @@ body {
 
 .container.matchPair {
   animation: matchPair .2s 4 step-start;
+  animation-delay: 0.5s;
 }
 
 h1 {

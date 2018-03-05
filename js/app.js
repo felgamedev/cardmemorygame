@@ -29,6 +29,19 @@ let nowTime = 0;
 let minutes = 0;
 let seconds = 0;
 
+// Music for background
+var bgMusic = new Audio("sfx/n_spade_music.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 0.6;
+bgMusic.play();
+
+// Sound effects
+var soundFlippedMatch = new Audio("sfx/smb3_nspade_match.wav");
+var soundFlippedNoMatch = new Audio("sfx/smb3_bonus_game_no_match.wav");
+var soundFlipped = new Audio("sfx/smb3_inventory_open_close.wav");
+var soundWinWith3Stars = new Audio("sfx/smb3_level_clear.wav")
+var soundWinWith1Star = new Audio("sfx/smb3_game_over.wav");
+
 document.addEventListener('click', function(event){
   if(event.target.classList.contains('black-overlay')
   || event.target.classList.contains('win-panel')
@@ -73,6 +86,9 @@ deck.addEventListener('click', function(event){
     }
   }
 
+  // Play card clicked sound
+  soundFlipped.play();
+
   // Reveal card
   toggleShowCard(cardClicked);
   // Add the card to the openCards list
@@ -107,6 +123,15 @@ container.addEventListener('animationstart', function(event){
   }
 });
 
+// Sound functions
+function playMatchingCardsSound(){
+  setTimeout(function(){soundFlippedMatch.play();}, 500);
+}
+
+function playNonMatchingCardsSound(){
+  setTimeout(function(){soundFlippedNoMatch.play();}, 500);
+}
+
 // Card functions
 function toggleShowCard(card){
   card.classList.toggle('show');
@@ -120,8 +145,10 @@ function checkForMatch(){
   if(cardOneClass == cardTwoClass){
     setMatchingCards();
     matchingPairsCount++;
+    playMatchingCardsSound();
   } else {
     timeoutId = setTimeout(rejectNonMatchingCards, 1000);
+    playNonMatchingCardsSound();
   }
 }
 
@@ -240,6 +267,12 @@ function showWinPanel(){
   deck.style.opacity = "50%";
   container.appendChild(blackOverlay);
   container.appendChild(winPanel);
+
+  if(starsCount ===3){
+    setTimeout(function(){soundWinWith3Stars.play();}, 500);
+  } else {
+    setTimeout(function(){soundWinWith1Star.play();}, 500);
+  }
 }
 
 function resetGameElementsAfterWin(){
