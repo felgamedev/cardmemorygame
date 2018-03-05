@@ -376,14 +376,9 @@ function incrementNumberOfMoves(){
      toggleStarsOff(2);
    }
 
-   if(movesCounter === 20){
+   if(movesCounter === 22){
      starsCount = 1;
      toggleStarsOff(1);
-   }
-
-   if(movesCounter === 24){
-     starsCount = 0;
-     toggleStarsOff(0);
    }
 
  }
